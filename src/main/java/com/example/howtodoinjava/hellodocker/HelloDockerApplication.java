@@ -29,7 +29,7 @@ class HelloDockerRestController {
 	
 	@RequestMapping("/")
 	public String dummy() {
-		return "Hello from spring boot docker... you can try [/name/{name}]";
+		return "Hello from spring boot docker updated... you can try [/name/{name}]";
 
 	}
 }
