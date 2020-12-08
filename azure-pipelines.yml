@@ -26,4 +26,5 @@ steps:
     containerRegistry: 'docker-sambitc'
     command: 'buildAndPush'
     Dockerfile: '**/Dockerfile'
+    repository: 'sambitc/hello-docker-az'
     tags: 'azure'
