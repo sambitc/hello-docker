@@ -35,3 +35,10 @@ steps:
     Dockerfile: '**/Dockerfile'
     repository: 'sambitc/hello-docker-az'
     tags: 'azure'
+
+- task: SonarCloudAnalyze@1
+
+- task: SonarCloudPublish@1
+  inputs:
+    pollingTimeoutSec: '300'
+
