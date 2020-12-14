@@ -29,11 +29,6 @@ steps:
     goals: 'package'
 
 
-- task: SonarCloudAnalyze@1
-
-- task: SonarCloudPublish@1
-  inputs:
-    pollingTimeoutSec: '300'
 
 - task: Docker@2
   inputs:
@@ -45,10 +40,10 @@ steps:
 
 - task: CopyFiles@2
   inputs:
-    SourceFolder: 'hello-docker'
+    SourceFolder: '**'
     Contents: |
-      app.yml
-      service.yml
+      app.yaml
+      service.yaml
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
 - task: KubernetesManifest@0
