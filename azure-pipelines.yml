@@ -10,13 +10,6 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
-
-- task: SonarCloudPrepare@1
-  inputs:
-    SonarCloud: 'SonarCloud'
-    organization: 'spring-docker'
-    scannerMode: 'Other'
-
 - task: Maven@3
   inputs:
     mavenPomFile: 'pom.xml'
@@ -29,7 +22,6 @@ steps:
     goals: 'package'
 
 
-
 - task: Docker@2
   inputs:
     containerRegistry: 'docker-sambitc'
@@ -40,7 +32,7 @@ steps:
 
 - task: CopyFiles@2
   inputs:
-    SourceFolder: 'hello-docker'
+    SourceFolder: '$(Build.SourcesDirectory)'
     Contents: |
       app.yaml
       service.yaml
