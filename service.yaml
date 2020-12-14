@@ -6,11 +6,10 @@ metadata:
     app: hello-docker
   name: hello-docker
 spec:
+  type: LoadBalancer
   ports:
   - port: 80
     protocol: TCP
     targetPort: 8080
   selector:
     app: hello-docker
-status:
-  loadBalancer: {}
