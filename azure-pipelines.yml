@@ -42,12 +42,15 @@ steps:
     Dockerfile: '**/Dockerfile'
     repository: 'sambitc/hello-docker-az'
     tags: 'azure'
-
-- task: PublishBuildArtifacts@1
+- task: CopyFiles@2
   inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'drop'
-    publishLocation: 'Container'
+    SourceFolder: 'dockerweb'
+    Contents: |
+      app.yaml
+      service.yaml'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
+
 
 
 - task: KubernetesManifest@0
