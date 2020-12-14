@@ -43,4 +43,18 @@ steps:
     repository: 'sambitc/hello-docker-az'
     tags: 'azure'
 
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
 
+
+- task: KubernetesManifest@0
+  inputs:
+    action: 'deploy'
+    kubernetesServiceConnection: 'k8-service-conn'
+    namespace: 'default'
+    manifests: |
+      $(Build.ArtifactStagingDirectory)/app.yaml
+      $(Build.ArtifactStagingDirectory)/service.yaml
