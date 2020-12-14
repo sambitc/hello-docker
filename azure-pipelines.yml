@@ -49,10 +49,7 @@ steps:
     Contents: |
       app.yml
       service.yml
-    TargetFolder: '$(Build.ArtifactStagingDirectory)
-
-
-
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
 - task: KubernetesManifest@0
   inputs:
