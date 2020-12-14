@@ -45,11 +45,11 @@ steps:
 
 - task: CopyFiles@2
   inputs:
-    SourceFolder: '**/'
+    SourceFolder: 'hello-docker'
     Contents: |
-      app.yaml
-      service.yaml
-    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+      app.yml
+      service.yml
+    TargetFolder: '$(Build.ArtifactStagingDirectory)
 
 
 
