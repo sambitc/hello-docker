@@ -1,17 +1,13 @@
 #!groovy
 
 pipeline {
-   
-   agent {
-    label 'docker' 
-  }
 
    environment { 
       registry = "https://hub.docker.com/repository/docker/hello-docker" 
       registryCredential = 'dockerhub_id' 
       dockerImage = '' 
   }
-
+   agent none
   stages {
     stage('Maven Install') {
       agent {
