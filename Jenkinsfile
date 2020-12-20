@@ -12,7 +12,6 @@ pipeline {
       dockerImage = '' 
   }
 
-  agent none
   stages {
     stage('Maven Install') {
       agent {
