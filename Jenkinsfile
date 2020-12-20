@@ -1,6 +1,11 @@
 #!groovy
 
 pipeline {
+   environment { 
+      registry = "https://hub.docker.com/repository/docker/hello-docker" 
+      registryCredential = 'dockerhub_id' 
+      dockerImage = '' 
+  }
   agent none
   stages {
     stage('Maven Install') {
@@ -14,20 +19,22 @@ pipeline {
         sh 'mvn clean install'
       }
     }
-    stage('Docker Build') {
-      agent any
-      steps {
-        sh 'docker build -t sambitc/hello-docker:latest .'
-      }
+      stage('Building our image') { 
+        steps { 
+            script { 
+                dockerImage = docker.build registry + ":$BUILD_NUMBER" 
+            }
+        } 
     }
-    stage('Docker Push') {
-      agent any
-      steps {
-        withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
-          sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
-          sh 'docker push sambitc/hello-docker:latest'
-        }
+    
+      stage('Deploy our image') { 
+      steps { 
+          script { 
+              docker.withRegistry( '', registryCredential ) { 
+                  dockerImage.push() 
+              }
+          } 
       }
-    }
+  } 
   }
 }
