@@ -1,28 +1,25 @@
 #!groovy
 
 pipeline {
-   environment { 
-      registry = "https://hub.docker.com/repository/docker/hello-docker" 
-      registryCredential = 'dockerhub_id' 
-      dockerImage = '' 
-  }
   agent none
   stages {
-   stage ('Install Stage') {
-      steps {
-      withMaven(maven : 'apache-maven-3.6.1') {
-      bat'mvn  install'
-            }
-         }
+    stage('Maven Install') {
+      agent {
+        docker {
+          image 'maven:3.6.3'
+           args '-v $HOME/.m2:/root/.m2'
+        }
       }
-      stage('Building our image') { 
-        steps { 
-            script { 
-                dockerImage = docker.build registry + ":$BUILD_NUMBER" 
-            }
-        } 
+      steps {
+        sh 'mvn clean install'
+      }
     }
-    
+    stage('Docker Build') {
+      agent any
+      steps {
+        sh 'docker build -t sambitc/hello-docker:latest .'
+      }
+    }
       stage('Deploy our image') { 
       steps { 
           script { 
