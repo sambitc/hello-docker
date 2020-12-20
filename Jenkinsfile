@@ -3,7 +3,7 @@
 pipeline {
 
    environment { 
-      registry = "https://hub.docker.com/repository/docker/hello-docker" 
+      registry = "sambitc/hello-docker" 
       registryCredential = 'dockerhub_id' 
       dockerImage = '' 
   }
