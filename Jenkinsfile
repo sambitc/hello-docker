@@ -1,6 +1,10 @@
 #!groovy
 
 pipeline {
+   
+   agent {
+    label 'docker' 
+  }
 
    environment { 
       registry = "https://hub.docker.com/repository/docker/hello-docker" 
