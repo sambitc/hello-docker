@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: hello-docker
+  name: hello-docker
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hello-docker
+  template:
+    metadata:
+      labels:
+        app: hello-docker
+    spec:
+      containers:
+        - image: sambitc/hello-docker:tkn
+          imagePullPolicy: Always
+          name: hello-docker
+          ports:
+            - containerPort: 8080
+              protocol: TCP
